@@ -14,6 +14,6 @@ async def on_message(message):
         return
 
     if message.content.startswith(modifier+'hello'):
-        await message.channel.send('Hello!')
+        await message.channel.send('Hello! ' + message.author)
 
 client.run('OTI0Nzc4MTk0NDE3MTIzMzQ4.Ycjgzw.WKcYPPOjipxRptsl7q9a4-tKVJg')
