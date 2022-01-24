@@ -1,19 +1,159 @@
+#Discord bot imports
 import discord 
+from discord.ext import commands
 
-client = discord.Client()
+#Google sheet imports. Might need to be installed locally. Used this guide https://www.analyticsvidhya.com/blog/2020/07/read-and-update-google-spreadsheets-with-python/
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
-modifier = '$'
 
-@client.event
+#Google Sheets Script Below
+scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+
+creds = ServiceAccountCredentials.from_json_keyfile_name('vhfc-bot-21b4604b07b0.json', scope)
+
+client = gspread.authorize(creds)
+
+sheet = client.open('VHFC Spreadsheet') #NAME OF SPREADSHEET OR URL
+
+# get the first sheet of the Spreadsheet
+sheet_instance = sheet.get_worksheet(0)
+
+#Bot Script Below
+bot = commands.Bot(command_prefix= '$')
+
+@bot.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+    await bot.change_presence(activity=discord.Game('Bets Closed!'))
+    print('Bot is Running.')
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
+@bot.command
+async def displayembed():
+    embed = discord.Embed(
+        title = 'Betting Odds',
+        description = 'These are the current odds for the match being bet on!',
+        colour = discord.Colour.red()
+    )
 
-    if message.content.startswith(modifier+'hello'):
-        await message.channel.send('Hello! ' + message.author)
+@bot.command()
+async def ping(ctx):
+    await ctx.send(f'Pong! {round(bot.latency*1000)}')
 
-client.run('OTI0Nzc4MTk0NDE3MTIzMzQ4.Ycjgzw.WKcYPPOjipxRptsl7q9a4-tKVJg')
+@bot.command()
+async def closed(ctx):
+    await bot.change_presence(activity=discord.Game('Bets Closed!'))
+
+@bot.command()
+async def bets(ctx):
+    await bot.change_presence(activity=discord.Game('Betting in Progress...'))
+    teams = 4
+    underdogExists = False
+    if(sheet_instance.acell('X7').value != 0):
+        teams += 6
+    elif(sheet_instance.acell('X6').value != 0):
+        teams += 5
+    underdog = [''] * teams
+    underdogBalance = [''] * teams
+    team1 = 'team1Name'
+    team2 = 'team2Name'
+    team3 = 'team3Name'
+    team4 = 'team4Name'
+    team1 = sheet_instance.acell('B2').value
+    team1Odds = sheet_instance.acell('X2').value
+    team2 = sheet_instance.acell('B3').value
+    team2Odds = sheet_instance.acell('X3').value
+    team3 = sheet_instance.acell('C2').value
+    team3Odds = sheet_instance.acell('X4').value
+    team4 = sheet_instance.acell('C3').value
+    team4Odds = sheet_instance.acell('X5').value
+
+    if(teams > 4):
+        team5 = sheet_instance.acell('B4').value
+        team5Odds = sheet_instance.acell('X6').value
+    if(teams > 5):
+        team6 = sheet_instance.acell('C4').value
+        team6Odds = sheet_instance.acell('X7').value
+
+    for x in range(teams):
+        if(sheet_instance.cell(x+2,25).value != 0):
+            underdog[x] = sheet_instance.cell(x+2,24).value
+            underdogBalance[x] = sheet_instance.cell(x+2,25).value
+            underdogExists = True
+
+
+    underValue = "N/A"
+    if(underdogExists): 
+        underText = ''.join(map(str,underdog))
+        #underValue = ''.join(underdogBalance)
+    else:
+        underText = "Currently No Underdog"
+        underValue = "N/A"
+
+    emb = discord.Embed(
+        title = 'Now accepting bets for the following match!',
+        description = team1 + ' vs ' + team2 + ' vs ' + team3 + ' vs ' + team4 + '!',
+        color = discord.Color.red()
+    )
+
+    emb.set_thumbnail(url='https://cdn.vox-cdn.com/thumbor/iBMhTe2QQDfdgRz7RPue7FDxoFE=/1400x1050/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/22727575/Screen_Shot_2021_07_19_at_5.34.11_PM.png')    
+    emb.add_field(name= team1 + ' odds', value = '100k --> ' + team1Odds, inline=True)
+    emb.add_field(name= team2 + ' odds', value = '100k --> ' + team2Odds, inline=True)
+    emb.add_field(name= 'Current Underdog', value = underText, inline=True)
+    emb.add_field(name= team3 + ' odds', value = '100k --> ' + team3Odds, inline=True)
+    emb.add_field(name= team4 + ' odds', value = '100k --> ' + team4Odds, inline=True)
+    emb.add_field(name= 'Amount Till Change', value = underValue, inline=True)
+    
+
+    await ctx.send(embed = emb)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bot.run('OTI0Nzc4MTk0NDE3MTIzMzQ4.Ycjgzw.WKcYPPOjipxRptsl7q9a4-tKVJg')
