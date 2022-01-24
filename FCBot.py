@@ -43,6 +43,7 @@ async def ping(ctx):
 async def closed(ctx):
     await bot.change_presence(activity=discord.Game('Bets Closed!'))
 
+
 @bot.command()
 async def bets(ctx):
     await bot.change_presence(activity=discord.Game('Betting in Progress...'))
@@ -68,18 +69,18 @@ async def bets(ctx):
     team3Odds = sheet_instance.acell('X4').value
     team4 = sheet_instance.acell('C3').value
     team4Odds = sheet_instance.acell('X5').value
-    
-    
+
+    matchText = team1 + " vs " + team2 + " vs " + team3 + " vs " + team4 + "!"
     if(teams > 4):
         team5 = sheet_instance.acell('B4').value
         team5Odds = sheet_instance.acell('X6').value
-        matchText = team1 + " vs " + team2 + " vs " + team3 + " vs " + team4 + " vs " + team5 + "!"
+        matchText = team1 + " vs " + team2 + " vs " + team3 + " vs " + team4 + " vs " + team5
     if(teams > 5):
         team6 = sheet_instance.acell('C4').value
         team6Odds = sheet_instance.acell('X7').value
-        matchText = team1 + " vs " + team2 + " vs " + team3 + " vs " + team4 + " vs " + team5 + " vs " + team6 + "!"
-    else:
-        matchText = team1 + " vs " + team2 + " vs " + team3 + " vs " + team4 + "!"
+        matchText = team1 + " vs " + team2 + " vs " + team3 + " vs " + team4 + " vs " + team5 + " vs " + team6
+    
+       
 
     for x in range(teams):
         if(sheet_instance.cell(x+2,25).value != '0'):
@@ -131,53 +132,6 @@ async def bets(ctx):
     emb.add_field(name='\u200b', value='\u200b',inline =True) 
 
     await ctx.send(embed = emb)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
