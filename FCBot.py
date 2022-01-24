@@ -14,10 +14,10 @@ creds = ServiceAccountCredentials.from_json_keyfile_name('vhfc-bot-21b4604b07b0.
 
 client = gspread.authorize(creds)
 
-sheet = client.open('VHFC Spreadsheet') #NAME OF SPREADSHEET OR URL
+sheet = client.open('VH Fight Club') #NAME OF SPREADSHEET OR URL
 
-# get the first sheet of the Spreadsheet
-sheet_instance = sheet.get_worksheet(0)
+# Name of tab in spreedsheet
+sheet_instance = sheet.worksheet('Fight Bookkeeping')
 
 #Bot Script Below
 bot = commands.Bot(command_prefix= '$')
@@ -45,16 +45,17 @@ async def closed(ctx):
 
 
 @bot.command()
+@commands.has_role("Fight Club Staff")
 async def bets(ctx):
     await bot.change_presence(activity=discord.Game('Betting in Progress...'))
     teams = 4
     underdogExists = False
-    if(sheet_instance.acell('X7').value != '0'):
+    if((sheet_instance.acell('X7').value != "0") and (sheet_instance.acell('X7').value != "0k")):
         teams += 1
-    if(sheet_instance.acell('X6').value != '0'):
+    if((sheet_instance.acell('X6').value != "0") and (sheet_instance.acell('X6').value != "0k")):
         teams += 1
         
-    print(teams)
+    print(str(teams) + " teams fighting.")
     underdog = [''] * teams
     underdogBalance = [''] * teams
     team1 = 'team1Name'
@@ -70,7 +71,7 @@ async def bets(ctx):
     team4 = sheet_instance.acell('C3').value
     team4Odds = sheet_instance.acell('X5').value
 
-    matchText = team1 + " vs " + team2 + " vs " + team3 + " vs " + team4 + "!"
+    matchText = team1 + " vs " + team2 + " vs " + team3 + " vs " + team4
     if(teams > 4):
         team5 = sheet_instance.acell('B4').value
         team5Odds = sheet_instance.acell('X6').value
@@ -83,7 +84,7 @@ async def bets(ctx):
        
 
     for x in range(teams):
-        if(sheet_instance.cell(x+2,25).value != '0'):
+        if((sheet_instance.cell(x+2,25).value != "0") and (sheet_instance.acell(x+2,25).value != "0k")):
             if(x==0):
                 underdog[0] = team1
             if(x==1):
@@ -97,7 +98,7 @@ async def bets(ctx):
             if(x==5):
                 underdog[5] = team6
             underdogBalance[x] = sheet_instance.cell(x+2,25).value
-            print(sheet_instance.cell(x+2,25).value)
+            print("Underdog spotted. Change in " + sheet_instance.cell(x+2,25).value)
             underdogExists = True
 
     if(underdogExists): 
@@ -115,7 +116,7 @@ async def bets(ctx):
         color = discord.Color.red()
     )
 
-    emb.set_thumbnail(url='https://cdn.vox-cdn.com/thumbor/iBMhTe2QQDfdgRz7RPue7FDxoFE=/1400x1050/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/22727575/Screen_Shot_2021_07_19_at_5.34.11_PM.png')    
+    #emb.set_thumbnail(url='https://cdn.vox-cdn.com/thumbor/iBMhTe2QQDfdgRz7RPue7FDxoFE=/1400x1050/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/22727575/Screen_Shot_2021_07_19_at_5.34.11_PM.png')    
     emb.add_field(name= team1 + ' odds', value = '100k --> ' + team1Odds, inline=True)
     emb.add_field(name= team2 + ' odds', value = '100k --> ' + team2Odds, inline=True)
     emb.add_field(name= 'Current Underdog(s)', value = underText, inline=True)
