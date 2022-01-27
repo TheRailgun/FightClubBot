@@ -84,7 +84,7 @@ async def bets(ctx):
        
 
     for x in range(teams):
-        if((sheet_instance.cell(x+2,25).value != "0") and (sheet_instance.acell(x+2,25).value != "0k")):
+        if((sheet_instance.cell(x+2,25).value != "0")):
             if(x==0):
                 underdog[0] = team1
             if(x==1):
@@ -98,12 +98,15 @@ async def bets(ctx):
             if(x==5):
                 underdog[5] = team6
             underdogBalance[x] = sheet_instance.cell(x+2,25).value
-            print("Underdog spotted. Change in " + sheet_instance.cell(x+2,25).value)
+            print("Underdog spotted. Change in " + str(sheet_instance.cell(x+2,25).value))
             underdogExists = True
 
-    if(underdogExists): 
-        underText = ' '.join(map(str,underdog))
-        underValue = ' '.join(map(str,underdogBalance))
+    if(underdogExists):
+        underdog = [i for i in underdog if i] 
+        underdogBalance = [i for i in underdogBalance if i] 
+        underText = ' | '.join(map(str,underdog))
+        underValue = ' | '.join(map(str,underdogBalance))
+        
     else:
         underText = "Currently No Underdog"
         underValue = "N/A"
