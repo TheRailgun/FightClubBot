@@ -24,7 +24,7 @@ bot = commands.Bot(command_prefix= '$')
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Game('Bets Closed!'))
+    #await bot.change_presence(activity=discord.Game('Bets Closed!'))
     print('Bot is Running.')
 
 @bot.command
@@ -39,15 +39,14 @@ async def displayembed():
 async def ping(ctx):
     await ctx.send(f'Pong! {round(bot.latency*1000)}')
 
-@bot.command()
-async def closed(ctx):
-    await bot.change_presence(activity=discord.Game('Bets Closed!'))
+#@bot.command()
+#async def closed(ctx):
+#    await bot.change_presence(activity=discord.Game('Bets Closed!'))
 
 
-@bot.command()
+@bot.command(aliases=['odds','bet','underdog'])
 @commands.has_role("Fight Club Staff")
 async def bets(ctx):
-    await bot.change_presence(activity=discord.Game('Betting in Progress...'))
     teams = 4
     underdogExists = False
     if((sheet_instance.acell('X7').value != "0") and (sheet_instance.acell('X7').value != "0k")):
