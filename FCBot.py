@@ -63,13 +63,25 @@ async def bets(ctx):
     team3 = 'team3Name'
     team4 = 'team4Name'
     team1 = sheet_instance.acell('B2').value
-    team1Odds = sheet_instance.acell('X2').value
+    if(sheet_instance.acell('X2').value > 0):
+        team1Odds = sheet_instance.acell('X2').value
+    else:
+        team1Odds = 0
     team2 = sheet_instance.acell('B3').value
-    team2Odds = sheet_instance.acell('X3').value
+    if(sheet_instance.acell('X3').value > 0):    
+        team2Odds = sheet_instance.acell('X3').value
+    else:
+        team2Odds = 0
     team3 = sheet_instance.acell('C2').value
-    team3Odds = sheet_instance.acell('X4').value
+    if(sheet_instance.acell('X4').value > 0):
+        team3Odds = sheet_instance.acell('X4').value
+    else:
+        team3Odds = 0
     team4 = sheet_instance.acell('C3').value
-    team4Odds = sheet_instance.acell('X5').value
+    if(sheet_instance.acell('X5').value > 0):
+        team4Odds = sheet_instance.acell('X5').value
+    else:
+        team4Odds = 0
 
     matchText = team1 + " vs " + team2 + " vs " + team3 + " vs " + team4
     if(teams > 4):
@@ -119,7 +131,7 @@ async def bets(ctx):
         color = discord.Color.red()
     )
 
-    #emb.set_thumbnail(url='https://cdn.vox-cdn.com/thumbor/iBMhTe2QQDfdgRz7RPue7FDxoFE=/1400x1050/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/22727575/Screen_Shot_2021_07_19_at_5.34.11_PM.png')    
+    
     emb.add_field(name= team1 + ' odds', value = '100k --> ' + team1Odds, inline=True)
     emb.add_field(name= team2 + ' odds', value = '100k --> ' + team2Odds, inline=True)
     emb.add_field(name= 'Current Underdog(s)', value = underText, inline=True)
