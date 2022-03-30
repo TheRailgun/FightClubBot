@@ -65,16 +65,12 @@ async def bets(ctx):
 
     team1 = sheet_instance.acell('B2').value
     team1Odds = sheet_instance.acell('X2').value
-    team1Odds = 0
     team2 = sheet_instance.acell('B3').value
     team2Odds = sheet_instance.acell('X3').value
-    team2Odds = 0
     team3 = sheet_instance.acell('C2').value
     team3Odds = sheet_instance.acell('X4').value
-    team3Odds = 0
     team4 = sheet_instance.acell('C3').value
     team4Odds = sheet_instance.acell('X5').value
-    team4Odds = 0
 
     matchText = team1 + " vs " + team2 + " vs " + team3 + " vs " + team4
     if(teams > 4):
