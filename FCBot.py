@@ -89,7 +89,7 @@ async def bets(ctx):
        
 
     for x in range(teams):
-        if((int(sheet_instance.cell(x+2,25).value) > -1)):
+        if((int(sheet_instance.cell(x+2,25).value.replace(",","")) > -1)):
             if(x==0):
                 underdog[0] = team1
             if(x==1):
