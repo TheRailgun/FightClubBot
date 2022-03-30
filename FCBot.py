@@ -62,27 +62,19 @@ async def bets(ctx):
     team2 = 'team2Name'
     team3 = 'team3Name'
     team4 = 'team4Name'
-    
+
     team1 = sheet_instance.acell('B2').value
-    if(int(sheet_instance.acell('X2').value) > 0):
-        team1Odds = sheet_instance.acell('X2').value
-    else:
-        team1Odds = 0
+    team1Odds = sheet_instance.acell('X2').value
+    team1Odds = 0
     team2 = sheet_instance.acell('B3').value
-    if(int(sheet_instance.acell('X3').value) > 0):    
-        team2Odds = sheet_instance.acell('X3').value
-    else:
-        team2Odds = 0
+    team2Odds = sheet_instance.acell('X3').value
+    team2Odds = 0
     team3 = sheet_instance.acell('C2').value
-    if(int(sheet_instance.acell('X4').value) > 0):
-        team3Odds = sheet_instance.acell('X4').value
-    else:
-        team3Odds = 0
+    team3Odds = sheet_instance.acell('X4').value
+    team3Odds = 0
     team4 = sheet_instance.acell('C3').value
-    if(int(sheet_instance.acell('X5').value) > 0):
-        team4Odds = sheet_instance.acell('X5').value
-    else:
-        team4Odds = 0
+    team4Odds = sheet_instance.acell('X5').value
+    team4Odds = 0
 
     matchText = team1 + " vs " + team2 + " vs " + team3 + " vs " + team4
     if(teams > 4):
@@ -97,7 +89,7 @@ async def bets(ctx):
        
 
     for x in range(teams):
-        if((sheet_instance.cell(x+2,25).value != "0")):
+        if((int(sheet_instance.cell(x+2,25).value) > -1)):
             if(x==0):
                 underdog[0] = team1
             if(x==1):
@@ -113,6 +105,7 @@ async def bets(ctx):
             underdogBalance[x] = sheet_instance.cell(x+2,25).value
             print("Underdog spotted. Change in " + str(sheet_instance.cell(x+2,25).value))
             underdogExists = True
+
 
     if(underdogExists):
         underdog = [i for i in underdog if i] 
