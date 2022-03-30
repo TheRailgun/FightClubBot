@@ -106,8 +106,8 @@ async def bets(ctx):
     if(underdogExists):
         underdog = [i for i in underdog if i] 
         underdogBalance = [i for i in underdogBalance if i] 
-        underText = ' | '.join(map(str,underdog))
-        underValue = ' | '.join(map(str,underdogBalance))
+        underText = ' |\n '.join(map(str,underdog))
+        underValue = ' |\n '.join(map(str,underdogBalance))
         
     else:
         underText = "Currently No Underdog"
