@@ -47,6 +47,7 @@ async def ping(ctx):
 @bot.command(aliases=['odds','bet','underdog'])
 @commands.has_role("Fight Club Staff")
 async def bets(ctx):
+    placeholderReturn = "190k"
     teams = 4
     underdogExists = False
     if((sheet_instance.acell('X7').value != "0") and (sheet_instance.acell('X7').value != "0k")):
@@ -63,22 +64,40 @@ async def bets(ctx):
     team4 = 'team4Name'
 
     team1 = sheet_instance.acell('B2').value
-    team1Odds = sheet_instance.acell('X2').value
+    if(sheet_instance.acell('X2').value == "#DIV/0!"):
+        team1Odds = placeholderReturn
+    else: 
+        team1Odds = sheet_instance.acell('X2').value
     team2 = sheet_instance.acell('B3').value
-    team2Odds = sheet_instance.acell('X3').value
+    if(sheet_instance.acell('X3').value == "#DIV/0!"):
+        team2Odds = placeholderReturn
+    else:
+        team2Odds = sheet_instance.acell('X3').value
     team3 = sheet_instance.acell('C2').value
-    team3Odds = sheet_instance.acell('X4').value
+    if(sheet_instance.acell('X4').value == "#DIV/0!"):
+        team3Odds = placeholderReturn
+    else:
+        team3Odds = sheet_instance.acell('X4').value
     team4 = sheet_instance.acell('C3').value
-    team4Odds = sheet_instance.acell('X5').value
+    if(sheet_instance.acell('X5').value == "#DIV/0!"):
+        team4Odds = placeholderReturn
+    else:
+        team4Odds = sheet_instance.acell('X5').value
 
     matchText = team1 + " vs " + team2 + " vs " + team3 + " vs " + team4
     if(teams > 4):
         team5 = sheet_instance.acell('B4').value
-        team5Odds = sheet_instance.acell('X6').value
+        if(sheet_instance.acell('X6').value == "#DIV/0!"):
+            team5Odds = placeholderReturn
+        else:
+            team5Odds = sheet_instance.acell('X6').value
         matchText = team1 + " vs " + team2 + " vs " + team3 + " vs " + team4 + " vs " + team5
     if(teams > 5):
         team6 = sheet_instance.acell('C4').value
-        team6Odds = sheet_instance.acell('X7').value
+        if(sheet_instance.acell('X7').value == "#DIV/0!"):
+            team6Odds = placeholderReturn
+        else:
+            team6Odds = sheet_instance.acell('X7').value
         matchText = team1 + " vs " + team2 + " vs " + team3 + " vs " + team4 + " vs " + team5 + " vs " + team6
     
        
