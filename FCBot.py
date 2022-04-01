@@ -87,9 +87,6 @@ async def bets(ctx):
         try:
             num = int(sheet_instance.cell(x+2,25).value.replace(",",""))
             print("Num is " + str(num))
-        except ValueError:
-            print("Not a number")
-            num = -1
             if(num > 0):
                 if(x==0):
                     underdog[0] = team1
@@ -106,6 +103,10 @@ async def bets(ctx):
                 underdogBalance[x] = sheet_instance.cell(x+2,25).value
                 print("Underdog spotted. Change in " + str(sheet_instance.cell(x+2,25).value))
                 underdogExists = True
+        except ValueError:
+            print("Not a number")
+            num = -1
+        
 
     if(underdogExists):
         underdog = [i for i in underdog if i] 
