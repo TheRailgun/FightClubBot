@@ -86,7 +86,7 @@ async def bets(ctx):
     for x in range(teams):
         try:
             num = int(sheet_instance.cell(x+2,25).value.replace(",",""))
-            print("Num is " + num)
+            print("Num is " + string(num))
         except ValueError:
             print("Not a number")
             num = -1
