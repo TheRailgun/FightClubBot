@@ -84,23 +84,27 @@ async def bets(ctx):
        
 
     for x in range(teams):
-        if((int(sheet_instance.cell(x+2,25).value.replace(",","")) > 0)):
-            if(x==0):
-                underdog[0] = team1
-            if(x==1):
-                underdog[1] = team2
-            if(x==2):
-                underdog[2] = team3
-            if(x==3):
-                underdog[3] = team4
-            if(x==4):
-                underdog[4] = team5
-            if(x==5):
-                underdog[5] = team6
-            underdogBalance[x] = sheet_instance.cell(x+2,25).value
-            print("Underdog spotted. Change in " + str(sheet_instance.cell(x+2,25).value))
-            underdogExists = True
-
+        try:
+            num = int(sheet_instance.cell(x+2,25).value.replace(",",""))
+        except ValueError:
+            print("Not a number")
+            num = -1
+            if(num > 0):
+                if(x==0):
+                    underdog[0] = team1
+                if(x==1):
+                    underdog[1] = team2
+                if(x==2):
+                    underdog[2] = team3
+                if(x==3):
+                    underdog[3] = team4
+                if(x==4):
+                    underdog[4] = team5
+                if(x==5):
+                    underdog[5] = team6
+                underdogBalance[x] = sheet_instance.cell(x+2,25).value
+                print("Underdog spotted. Change in " + str(sheet_instance.cell(x+2,25).value))
+                underdogExists = True
 
     if(underdogExists):
         underdog = [i for i in underdog if i] 
