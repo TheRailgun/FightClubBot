@@ -170,4 +170,4 @@ async def bets(ctx):
 
 
 
-bot.run('OTI0Nzc4MTk0NDE3MTIzMzQ4.Ycjgzw.WKcYPPOjipxRptsl7q9a4-tKVJg')
+bot.run(bot_key)
