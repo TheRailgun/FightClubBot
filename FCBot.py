@@ -17,9 +17,9 @@ bot_key = os.environ.get('DISCORD_TOKEN')
 gdoc_json = os.environ.get('VHFC_JSON')
 
 #gdoc_json = JSON.parse(gdoc_json)
-#creds = ServiceAccountCredentials.from_json_keyfile_name('VHFC_JSON', scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name('VHFC_JSON', scope)
 
-creds = ServiceAccountCredentials.from_json_keyfile_dict(gdoc_json)
+#creds = ServiceAccountCredentials.from_json_keyfile_dict(gdoc_json)
 
 client = gspread.authorize(creds)
 
@@ -47,7 +47,7 @@ async def displayembed():
 @bot.command()
 async def ping(ctx):
     await ctx.send(f'Pong! {round(bot.latency*1000)}')
-    await ctx.send((gdoc_json))
+    
     
 
 #@bot.command()
