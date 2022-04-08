@@ -1,4 +1,5 @@
 #Discord bot imports
+import string
 import discord 
 from discord.ext import commands
 import os
@@ -44,7 +45,7 @@ async def displayembed():
 @bot.command()
 async def ping(ctx):
     await ctx.send(f'Pong! {round(bot.latency*1000)}')
-    await ctx.send(gdoc_json)
+    await ctx.send((gdoc_json).str())
     
 
 #@bot.command()
