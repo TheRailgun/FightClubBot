@@ -40,8 +40,8 @@ async def displayembed():
 
 @bot.command()
 async def ping(ctx):
-    await ctx.send(f'Pong! {bot_key}')
-
+    await ctx.send(f'Pong! {round(bot.latency*1000)}')
+    
 
 #@bot.command()
 #async def closed(ctx):
