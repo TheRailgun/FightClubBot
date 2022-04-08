@@ -15,6 +15,7 @@ bot_key = os.environ.get('DISCORD_TOKEN')
 
 gdoc_json = os.environ.get('VHFC_JSON')
 
+gdoc_json = JSON.parse(gdoc_json)
 creds = ServiceAccountCredentials.from_json_keyfile_name('VHFC_JSON', scope)
 
 client = gspread.authorize(creds)
