@@ -35,24 +35,13 @@ async def on_ready():
     #await bot.change_presence(activity=discord.Game('Bets Closed!'))
     print('Bot is Running.')
 
-@bot.command
-async def displayembed():
-    embed = discord.Embed(
-        title = 'Betting Odds',
-        description = 'These are the current odds for the match being bet on!',
-        colour = discord.Colour.red()
-    )
-
 @bot.command()
 async def ping(ctx):
     await ctx.send(f'Pong! {round(bot.latency*1000)}')
 
-    
-
 #@bot.command()
 #async def closed(ctx):
 #    await bot.change_presence(activity=discord.Game('Bets Closed!'))
-
 
 @bot.command(aliases=['odds','bet','underdog'])
 @commands.has_role("Fight Club Staff")
