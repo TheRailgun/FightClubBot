@@ -51,7 +51,7 @@ async def ping(ctx):
     client = gspread.authorize(creds)
     sheet = client.open('VH Fight Club') 
     sheet_instance = sheet.worksheet('Fight Bookkeeping')
-    print(sheet_instance.acell('A2'))
+    print(sheet_instance.acell('A104'))
     
 
 #@bot.command()
