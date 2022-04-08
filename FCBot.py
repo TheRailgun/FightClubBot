@@ -15,7 +15,7 @@ scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/aut
 bot_key = os.environ.get('DISCORD_TOKEN')
 
 data = os.environ.get('VHFC_JSON')
-
+print(data)
 #gdoc_json = json.load(data)
 
 #gdoc_json = JSON.parse(gdoc_json)
