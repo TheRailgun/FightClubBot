@@ -16,7 +16,7 @@ bot_key = os.environ.get('DISCORD_TOKEN')
 
 data = os.environ.get('VHFC_JSON')
 
-gdoc_json = json.load(data)
+#gdoc_json = json.load(data)
 
 #gdoc_json = JSON.parse(gdoc_json)
 creds = ServiceAccountCredentials.from_json_keyfile_name('VHFC_JSON', scope)
