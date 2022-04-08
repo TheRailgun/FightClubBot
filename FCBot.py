@@ -19,8 +19,6 @@ gdoc_json = os.environ.get('VHFC_JSON')
 #gdoc_json = JSON.parse(gdoc_json)
 creds = ServiceAccountCredentials.from_json_keyfile_name('VHFC_JSON', scope)
 
-#creds = ServiceAccountCredentials.from_json_keyfile_dict(gdoc_json)
-
 client = gspread.authorize(creds)
 
 sheet = client.open('VH Fight Club') #NAME OF SPREADSHEET OR URL
@@ -47,7 +45,8 @@ async def displayembed():
 @bot.command()
 async def ping(ctx):
     await ctx.send(f'Pong! {round(bot.latency*1000)}')
-    
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(gdoc_json,scope)
+    await ctx.send(creds)
     
 
 #@bot.command()
