@@ -1,8 +1,8 @@
 #Discord bot imports
-import string
 import discord 
 from discord.ext import commands
 import os
+import json
 
 #Google sheet imports. Might need to be installed locally. Used this guide https://www.analyticsvidhya.com/blog/2020/07/read-and-update-google-spreadsheets-with-python/
 import gspread
@@ -14,7 +14,9 @@ scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/aut
 
 bot_key = os.environ.get('DISCORD_TOKEN')
 
-gdoc_json = os.environ.get('VHFC_JSON')
+data = os.environ.get('VHFC_JSON')
+
+gdoc_json = json.load(data)
 
 #gdoc_json = JSON.parse(gdoc_json)
 creds = ServiceAccountCredentials.from_json_keyfile_name('VHFC_JSON', scope)
@@ -46,7 +48,8 @@ async def displayembed():
 async def ping(ctx):
     await ctx.send(f'Pong! {round(bot.latency*1000)}')
     creds = ServiceAccountCredentials.from_json_keyfile_dict(gdoc_json,scope)
-    await ctx.send(creds)
+    client = gspread.authorize(creds)
+    #await ctx.send(creds)
     
 
 #@bot.command()
