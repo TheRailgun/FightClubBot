@@ -1,6 +1,7 @@
 #Discord bot imports
 import discord 
 from discord.ext import commands
+import os
 
 #Google sheet imports. Might need to be installed locally. Used this guide https://www.analyticsvidhya.com/blog/2020/07/read-and-update-google-spreadsheets-with-python/
 import gspread
@@ -9,6 +10,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 #Google Sheets Script Below
 scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+
+bot_key = os.environ.get('DISCORD_TOKEN')
 
 creds = ServiceAccountCredentials.from_json_keyfile_name('vhfc-bot-21b4604b07b0.json', scope)
 
