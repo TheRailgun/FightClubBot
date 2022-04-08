@@ -13,7 +13,9 @@ scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/aut
 
 bot_key = os.environ.get('DISCORD_TOKEN')
 
-creds = ServiceAccountCredentials.from_json_keyfile_name('vhfc-bot-21b4604b07b0.json', scope)
+#gdoc_json = os.environ.get('VHFC_JSON')
+
+creds = ServiceAccountCredentials.from_json_keyfile_name('VHFC_JSON', scope)
 
 client = gspread.authorize(creds)
 
