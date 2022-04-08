@@ -15,11 +15,10 @@ scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/aut
 bot_key = os.environ.get('DISCORD_TOKEN')
 
 data = os.environ.get('VHFC_JSON')
-print(data)
 
 gdoc_json = json.loads(data)
 
-creds = ServiceAccountCredentials.from_json_keyfile_name('VHFC_JSON', scope)
+creds = ServiceAccountCredentials.from_json_keyfile_dict(gdoc_json,scope)
 
 client = gspread.authorize(creds)
 
@@ -47,11 +46,7 @@ async def displayembed():
 @bot.command()
 async def ping(ctx):
     await ctx.send(f'Pong! {round(bot.latency*1000)}')
-    creds = ServiceAccountCredentials.from_json_keyfile_dict(gdoc_json,scope)
-    client = gspread.authorize(creds)
-    sheet = client.open('VH Fight Club') 
-    sheet_instance = sheet.worksheet('Fight Bookkeeping')
-    print(sheet_instance.acell('A104'))
+
     
 
 #@bot.command()
