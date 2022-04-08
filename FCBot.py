@@ -13,7 +13,7 @@ scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/aut
 
 bot_key = os.environ.get('DISCORD_TOKEN')
 
-#gdoc_json = os.environ.get('VHFC_JSON')
+gdoc_json = os.environ.get('VHFC_JSON')
 
 creds = ServiceAccountCredentials.from_json_keyfile_name('VHFC_JSON', scope)
 
@@ -43,6 +43,7 @@ async def displayembed():
 @bot.command()
 async def ping(ctx):
     await ctx.send(f'Pong! {round(bot.latency*1000)}')
+    await ctx.send(gdoc_json)
     
 
 #@bot.command()
