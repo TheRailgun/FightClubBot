@@ -43,7 +43,7 @@ async def ping(ctx):
 #async def closed(ctx):
 #    await bot.change_presence(activity=discord.Game('Bets Closed!'))
 
-@bot.command(aliases=['odds','bet','underdog'])
+@bot.command(aliases=['odds','bet','underdog','cum'])
 #@commands.has_role("Fight Club Staff")
 async def bets(ctx):
     placeholderReturn = "190k"
